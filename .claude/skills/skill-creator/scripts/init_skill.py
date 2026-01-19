@@ -13,6 +13,7 @@ Examples:
 import sys
 import json
 from pathlib import Path
+from typing import Optional
 
 
 SKILL_TEMPLATE = """---
@@ -201,7 +202,7 @@ def validate_skill_name(skill_name: str) -> tuple[bool, str]:
     return True, "名称有效"
 
 
-def init_skill(skill_name: str, path: str) -> Path | None:
+def init_skill(skill_name: str, path: str) -> Optional[Path]:
     """
     初始化新的 Skill 目录。
     
