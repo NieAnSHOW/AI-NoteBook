@@ -1,0 +1,28 @@
+{
+  "name": "ai-notebook-docs",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI-NoteBook 技术文档",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview",
+    "docs:deploy": "vitepress build && gh-pages -d docs/.vitepress/dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/AI-NoteBook.git"
+  },
+  "keywords": [
+    "ai",
+    "notebook",
+    "markdown",
+    "analysis"
+  ],
+  "author": "AI-NoteBook Team",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.0.0",
+    "gh-pages": "^6.1.0"
+  }
+}

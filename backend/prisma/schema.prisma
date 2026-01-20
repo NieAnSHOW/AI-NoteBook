@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 用户模型
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String   // bcrypt加密
+  username   String?
+  apiKey     String?  @unique @default(uuid())
+  membership Membership @default(FREE)
+  balance    Decimal  @default(0) @db.Decimal(10, 2)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // 关联关系
+  analyses   Analysis[]
+
+  @@index([email])
+  @@index([apiKey])
+}
+
+// 会员类型枚举
+enum Membership {
+  FREE    // 免费版（MVP）
+  BASIC   // 基础版（V2.0）
+  PRO     // 专业版（V2.0）
+}
+
+// 文章解析模型
+model Analysis {
+  id                 String         @id @default(uuid())
+  userId             String
+  user               User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // 文章内容
+  title              String
+  originalContent    String         @db.Text
+  processedContent   Json?          // 存储提炼后的内容结构
+
+  // 易读性评分
+  readabilityScore   Int            // 1-5分
+  readabilityDetail  Json?          // 详细评分说明
+
+  // 统计信息
+  wordCount          Int            @default(0)
+  readingTime        Int            @default(0) // 分钟
+
+  // 状态
+  status             AnalysisStatus @default(PENDING)
+  errorMessage       String?
+
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// 解析状态枚举
+enum AnalysisStatus {
+  PENDING      // 待处理
+  PROCESSING   // 处理中
+  COMPLETED    // 已完成
+  FAILED       // 失败
+}

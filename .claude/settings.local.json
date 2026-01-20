@@ -41,13 +41,22 @@
       "Bash(pip3 show:*)",
       "Skill(web-to-markdown)",
       "Bash(pip3 list:*)",
-      "Bash(/usr/bin/python3:*)"
+      "Bash(/usr/bin/python3:*)",
+      "Skill(browser)",
+      "Bash(tree:*)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(npm install)",
+      "Bash(npm run docs:dev:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(docker-compose ps:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm uninstall:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "exa",
-    "Sequential thinking",
     "fetch"
   ],
   "outputStyle": "Coding Vibes"
