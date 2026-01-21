@@ -10,18 +10,21 @@ async function bootstrap() {
 
   // CORS 配置
   app.enableCors({
-    origin: process.env.NODE_ENV === 'production'
-      ? ['https://your-domain.com']
-      : ['http://localhost:5173', 'http://localhost:3000'],
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? ['https://your-domain.com']
+        : ['http://localhost:5173', 'http://localhost:3000'],
     credentials: true,
   });
 
   // 全局验证管道
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true,
-    forbidNonWhitelisted: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   const port = process.env.API_PORT || 3000;
   await app.listen(port);
